@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Uusi arvostelu</title>
+</head>
+
+<body>
+  <h1>Uusi arvostelu</h1>
+  <form action="/create_item" method="post">
+    <p>
+      Albumi: <br />
+      <input type="text" name="album" />
+     </p> 
+
+      Artisti: <br />
+      <input type="text" name="artist" />
+    </p>
+
+    <p>
+      Arvostelu: <br />
+      <textarea name="review" rows="8" cols="50"></textarea>
+    </p>
+
+    <p>
+      Arvostele (1-10): <br />
+      <input type ="text" name="review_points" size="5" />
+    </p>
+
+    <input type="submit" value="Luo arvostelu" />
+  </form>
+</body>
+
+</html>
