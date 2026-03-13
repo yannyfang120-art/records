@@ -24,7 +24,11 @@ def create_item():
     album = request.form["album"]
     artist = request.form["artist"]
     review = request.form["review"]
-    review_points = request.form["review_points"]
+
+    review_points = int(request.form["review_points"])
+    if review_points < 1 or review_points > 10:
+        return "VIRHE: arvostelun pitää olla 1-10"
+
     user_id = session["user_id"]
 
     sql = """INSERT INTO items (album, artist, review, review_points, user_id)
