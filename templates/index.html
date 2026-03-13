@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Records</title>
+</head>
+
+<body>
+  <h1>Records</h1>
+
+  {% if session.get("username") %}
+    <p>Olet kirjautunut nimellä {{ session.get("username") }}</p>
+  {% endif %}
+
+  <p>
+    <a href="/login">Kirjaudu sisään</a>
+    <a href="/register">Luo tunnus</a>
+    <a href="/logout">Kirjaudu ulos</a>
+</p>
+
+  </p>
+
+</body>
+
+</html>
