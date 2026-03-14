@@ -23,6 +23,33 @@ def show_item(item_id):
     item = items.get_item(item_id)
     return render_template("show_item.html", item=item) 
 
+#arvostelun muokkaus
+
+@app.route("/edit_item/<int:item_id>")
+def edit_item(item_id):
+    item = items.get_item(item_id)
+    return render_template("edit_item.html",item=item)
+
+@app.route("/update_item", methods=["POST"])
+def update_item():
+    item_id = request.form["item_id"]
+    album = request.form["album"]
+    artist = request.form["artist"]
+    review = request.form["review"]
+
+    review_points = int(request.form["review_points"])
+    if review_points < 1 or review_points > 10:
+        return "VIRHE: arvostelun pitää olla 1-10"
+
+
+
+    items.update_item(item_id, album, artist, review, review_points)
+
+    return redirect("/item/" + str(item_id))
+
+
+
+
 
 #uusi arvostelu
 @app.route("/new_item")
