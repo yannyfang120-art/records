@@ -25,7 +25,14 @@
 
   </p>
 
-  <h2>Arvostelut<h2>
+  <h2>Arvostelut</h2>
+
+  <ul>
+    {% for item in items %}
+    <li><a href="/item/{{item.id}}">{{item.album}}</li>
+    {% endfor %}
+  </ul>
+
 
 </body>
 

@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import config
 import db
+import items
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -12,7 +13,16 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_items = items.get_items()
+    return render_template("index.html", items=all_items)
+
+
+#tiedon hankinta
+@app.route("/item/<int:item_id>")
+def show_item(item_id):
+    item = items.get_item(item_id)
+    return render_template("show_item.html", item=item) 
+
 
 #uusi arvostelu
 @app.route("/new_item")
@@ -31,9 +41,7 @@ def create_item():
 
     user_id = session["user_id"]
 
-    sql = """INSERT INTO items (album, artist, review, review_points, user_id)
-            VALUES (?, ?, ?, ?, ?)"""
-    db.execute(sql, [album, artist, review, review_points, user_id])
+    items.add_item(album, artist, review, review_points, user_id)
 
     return redirect("/")
 
