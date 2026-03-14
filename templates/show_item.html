@@ -7,6 +7,13 @@
 
 <body>
   <h1>{{ item.album }}</h1>
+
+   {% if session.get("user_id") == item.user_id %}
+    <p>
+     <a href ="/edit_item/{{ item.id }}">Muokkaa</a>
+    </p>
+  {% endif %}
+
   <p>
     Artisti: {{ item.artist }}
   </p>

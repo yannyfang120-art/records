@@ -11,13 +11,24 @@ def get_items():
 
 def get_item(item_id):
 	sql = """
-		SELECT items.album,
+		SELECT  items.id,
+				items.album,
 				items.artist,
 				items.review,
 				items.review_points,
+				users.id user_id,
 				users.username
 		From items, users
 		Where items.user_id = users.id
 			and items.id = ?
 	"""
 	return db.query(sql, [item_id])[0]
+
+def update_item(item_id, album, artist, review, review_points):
+	sql = """ Update items
+				SET album = ?,
+					artist = ?,
+					review = ?,
+					review_points = ?
+					WHERE id = ?"""
+	db.execute(sql, [album, artist, review, review_points, item_id])
