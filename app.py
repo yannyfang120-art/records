@@ -113,6 +113,23 @@ def create():
 
     return "Tunnus luotu"
 
+#tiedon etsiminen
+
+@app.route("/find_item")
+def find_item():
+    query = request.args.get("query")
+    if query:
+        results = items.find_item(query)
+
+    else:
+        query = ""
+        results = []
+    return render_template("find_item.html", query=query, results=results)
+
+
+
+
+
 
 #kirjautuminen
 

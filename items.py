@@ -2,7 +2,7 @@ import db
 
 def add_item(album, artist, review, review_points, user_id):
 	sql = """ INSERT INTO items (album, artist, review, review_points, user_id)
-				VALUES (?, ?, ?, ?. ?)"""
+				VALUES (?, ?, ?, ?, ?)"""
 	db.execute(sql, [album, artist, review, review_points, user_id])
 
 def get_items():
@@ -37,3 +37,13 @@ def update_item(item_id, album, artist, review, review_points):
 def remove_item(item_id):
 	sql = "DELETE FROM items WHERE id = ?"
 	db.execute(sql, [item_id])
+
+
+#tiedon etsiminen
+def find_item(query):
+	sql = """Select id, album
+			 from items
+			 where album like ? or artist LIKE ?
+			 order by id desc"""
+	like = "%" + query + "%"
+	return db.query(sql, [like, like])
