@@ -29,7 +29,8 @@
 
   <ul>
     {% for item in items %}
-    <li><a href="/item/{{item.id}}">{{item.album}}</li>
+    <li><a href="{{ url_for('show_item', item_id=item.id) }}">{{ item.album }}</a></li>
+
     {% endfor %}
   </ul>
 

@@ -32,3 +32,8 @@ def update_item(item_id, album, artist, review, review_points):
 					review_points = ?
 					WHERE id = ?"""
 	db.execute(sql, [album, artist, review, review_points, item_id])
+
+
+def remove_item(item_id):
+	sql = "DELETE FROM items WHERE id = ?"
+	db.execute(sql, [item_id])
