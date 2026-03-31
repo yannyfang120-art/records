@@ -12,5 +12,5 @@ Sovelluksen testaaminen omalla koneella:
 - Asenna tarvittavat kirjastot komennolla pip install -r requirements.txt
 - Luo tietokanta ajamalla .sql-tiedosto (esim. sqlite3 database.db < schema.sql)
 - Käynnistä sovellus komennolla python app.py
-- Avaa-selain ja mene osoitteeseen http://localhost:5000
+  
 Huomaa, että database.db-tiedosto ei ole mukana repositoriossa, vaan se täytyy luoda itse .sql-tiedostojen avulla.
