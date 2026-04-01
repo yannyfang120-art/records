@@ -39,7 +39,6 @@ def update_item():
     if item["user_id"] != session["user_id"]:
         abort(403)
 
-
     album = request.form["album"]
     artist = request.form["artist"]
     review = request.form["review"]
