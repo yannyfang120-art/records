@@ -10,16 +10,16 @@
   <form action="/update_item" method="post">
     <p>
       Albumi: <br />
-      <input type="text" name="album" value="{{ item.album }}" />
+      <input type="text" name="album" value="{{ item.album }}" maxlength="50" required />
      </p> 
 
       Artisti: <br />
-      <input type="text" name="artist" value="{{ item.artist }}" />
+      <input type="text" name="artist" value="{{ item.artist }}" maxlength="50" required />
     </p>
 
     <p>
       Arvostelu: <br />
-      <textarea name="review" rows="8" cols="50">{{ item.review }}</textarea>
+      <textarea name="review" rows="8" cols="50" maxlength="1000" required>{{ item.review }}</textarea>
     </p>
 
     <p>
