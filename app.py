@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import items
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -170,6 +171,15 @@ def find_item():
     return render_template("find_item.html", query=query, results=results)
 
 
+#käyttäjän linkki
+
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    items = users.get_items(user_id)
+    return render_template("show_user.html", user=user, items=items) 
 
 
 
@@ -200,12 +210,15 @@ def login():
         else:
             return "VIRHE: väärä tunnus tai salasana"
 
+#kirjautuminen ulos
+
 @app.route("/logout")
 def logout():
     if "user_id" in session:
         del session ["user_id"]
         del session["username"]
     return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
