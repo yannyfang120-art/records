@@ -16,13 +16,14 @@ def get_item(item_id):
 				items.artist,
 				items.review,
 				items.review_points,
-				users.id user_id,
+				users.id as user_id,
 				users.username
-		From items, users
-		Where items.user_id = users.id
-			and items.id = ?
+		FROM items
+		LEFT JOIN users ON items.user_id = users.id
+		WHERE items.id = ?
 	"""
-	return db.query(sql, [item_id])[0]
+	result = db.query(sql, [item_id])
+	return result[0] if result else None
 
 def update_item(item_id, album, artist, review, review_points):
 	sql = """ Update items
