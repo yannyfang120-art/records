@@ -106,8 +106,14 @@ def create_item():
     require_login()
 
     album = request.form["album"]
+    if not album or len(album) > 50:
+        abort(403)
     artist = request.form["artist"]
+    if not artist or len(artist) > 50:
+        abort(403)
     review = request.form["review"]
+    if not review or len(review) > 1000:
+        abort(403)
 
     review_points = int(request.form["review_points"])
     if review_points < 1 or review_points > 10:

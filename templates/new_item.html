@@ -10,16 +10,16 @@
   <form action="/create_item" method="post">
     <p>
       Albumi: <br />
-      <input type="text" name="album" />
+      <input type="text" name="album" maxlength="50" required />
      </p> 
 
       Artisti: <br />
-      <input type="text" name="artist" />
+      <input type="text" name="artist" maxlength="50" required />
     </p>
 
     <p>
       Arvostelu: <br />
-      <textarea name="review" rows="8" cols="50"></textarea>
+      <textarea name="review" rows="8" cols="50" maxlength="1000" required></textarea>
     </p>
 
     <p>
