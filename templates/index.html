@@ -9,21 +9,27 @@
   <h1>Records</h1>
 
   {% if session.get("username") %}
-    <p>
-      Olet kirjautunut nimellä {{ session.get("username") }}, id-numerosi on {{session.user_id}}
-    </p>
-  {% endif %}
+  <p>
+    Olet kirjautunut nimellä {{ session.get("username") }}, id-numerosi on {{session.user_id}}
+  </p>
+  <p>
+    <a href="/logout">Kirjaudu ulos</a>
+  </p>
+
+  <p>
+    <a href="/new_item">Uusi arvostelu</a>
+  </p>
+
+  {% else %}
 
   <p>
     <a href="/login">Kirjaudu sisään</a>
     <a href="/register">Luo tunnus</a>
-    <a href="/logout">Kirjaudu ulos</a>
-</p>
+  </p>
 
+  {% endif %}
   <p>
-    <a href="/new_item">Uusi arvostelu</a>
     <a href="/find_item">Etsi arvostelu</a>
-
   </p>
 
   <h2>Arvostelut</h2>
