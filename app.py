@@ -27,7 +27,8 @@ def show_item(item_id):
     item = items.get_item(item_id)
     if not item:
         abort(404)
-    return render_template("show_item.html", item=item) 
+    classes = items.get_classes(item_id)
+    return render_template("show_item.html", item=item, classes=classes) 
 
 #arvostelun muokkaus
 
@@ -64,9 +65,11 @@ def update_item():
     if not review or len(review) > 1000:
         abort(403)
 
-    review_points = int(request.form["review_points"])
+    review_points = float(request.form["review_points"])
     if review_points < 1 or review_points > 10:
         return "VIRHE: arvostelun pitää olla 1-10"
+
+    review_points = round(review_points, 1)
 
 
 
@@ -127,10 +130,14 @@ def create_item():
 
     user_id = session["user_id"]
 
-    items.add_item(album, artist, review, review_points, user_id)
+    classes = []
+    section = request.form["section"]
+    if section:
+        classes.append(("Genre", section))
+
+    items.add_item(album, artist, review, review_points, user_id, classes)
 
     return redirect("/")
-
 
 
 #tunnus

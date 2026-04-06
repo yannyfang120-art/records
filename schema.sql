@@ -12,3 +12,11 @@ CREATE TABLE items (
     review_points INTEGER,
     user_id INTEGER
 );
+
+
+CREATE TABLE item_classes (
+    id INTEGER PRIMARY KEY,
+    item_id INTEGER REFERENCES items,
+    album TEXT,
+    value TEXT
+);
