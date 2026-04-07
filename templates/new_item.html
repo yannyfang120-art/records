@@ -27,25 +27,18 @@
       <input type ="text" name="review_points" min="1" max="10" required/>
     </p>
 
+
+    {% for class in classes %}
     <p>
-      Genre: <br />
-      <select name="section">
-        <option value="">(valitse</option>
-        <option value="pop">pop</option>
-        <option value="hiphop/rap">hiphop/rap</option>
-        <option value="rock">rock</option>
-        <option value="r&b/soul">r&b/soul</option>
-        <option value="electronic/edm">electronic/edm</option>
-        <option value="country">country</option>
-        <option value="jazz">jazz</option>
-        <option value="latin">latin</option>
-        <option value="kpop">kpop</option>
-        <option value="classic">classic</option>
-        <option value="muut">muut</option>
-      </select>
-
+      {{ class }}: <br />
+      <select name="classes">
+        <option value="">(valitse)</option>
+      {% for option in classes[class] %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      {% endfor %}
+    </select>
     </p>
-
+    {% endfor %}
 
 
 

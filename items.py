@@ -1,5 +1,17 @@
 import db
 
+def get_all_classes():
+	sql = "SELECT album, value FROM classes ORDER BY id"
+	result = db.query(sql)
+
+	classes = {}
+	for album, value in result:
+		classes[album] = []
+	for album, value in result:
+		classes[album].append(value)
+
+	return classes
+
 def add_item(album, artist, review, review_points, user_id, classes):
 	sql = """ INSERT INTO items (album, artist, review, review_points, user_id)
 				VALUES (?, ?, ?, ?, ?)"""

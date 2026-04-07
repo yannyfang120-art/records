@@ -13,6 +13,11 @@ CREATE TABLE items (
     user_id INTEGER
 );
 
+CREATE TABLE classes (
+    id INTEGER PRIMARY KEY,
+    album TEXT,
+    value TEXT
+);
 
 CREATE TABLE item_classes (
     id INTEGER PRIMARY KEY,
