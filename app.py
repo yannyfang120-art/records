@@ -28,7 +28,8 @@ def show_item(item_id):
     if not item:
         abort(404)
     classes = items.get_classes(item_id)
-    return render_template("show_item.html", item=item, classes=classes) 
+    bids = items.get_bids(item_id)
+    return render_template("show_item.html", item=item, classes=classes, bids=bids)
 
 #arvostelun muokkaus
 
@@ -70,6 +71,7 @@ def update_item():
         return "VIRHE: arvostelun pitää olla 1-10"
 
     review_points = round(review_points, 1)
+    review_points_str = f"{review_points:.1f}"
 
 
 
@@ -185,6 +187,25 @@ def show_user(user_id):
     return render_template("show_user.html", user=user, items=items) 
 
 
+#kommentin käsittelijä
+@app.route("/create_bid", methods=["POST"])
+def create_bid():
+    require_login()
+
+    comment_review = request.form["comment_review"]
+    if not comment_review or len(comment_review) > 1000:
+        abort(403)
+
+    item_id = request.form["item_id"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(403)
+
+    user_id = session["user_id"]
+
+    items.add_bid(item_id, user_id, comment_review)
+
+    return redirect("/item/" + str(item_id))
 
 
 #kirjautuminen

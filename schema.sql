@@ -25,3 +25,10 @@ CREATE TABLE item_classes (
     album TEXT,
     value TEXT
 );
+
+CREATE TABLE bids (
+    id INTEGER PRIMARY KEY,
+    item_id INTEGER REFERENCES items,
+    user_id INTEGER REFERENCES users,
+    comment_review INTEGER
+);

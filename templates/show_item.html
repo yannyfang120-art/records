@@ -38,6 +38,18 @@
 
   </p>
   {% endif %}
+  <h2>Kommentit</h2>
+  <ul>
+    {% for bid in bids %}
+    <li>{{ bid.comment_review}}, <a href="/user/{{ bid.user_id }}">{{ bid.username }}</a></li>
+    {% endfor %}
+  </ul>
+  <h2>Uusi kommentti</h2>
+  <form action="/create_bid" method="post">
+    Kommentti: <br />
+    <textarea name="comment_review" rows="8" cols="45" maxlength="1000" required></textarea>
+    <input type="hidden" name="item_id" value="{{ item.id }}">
+    <input type="submit" value="Lähetä kommentti" />
   <p>
     <a href="/">Takaisin</a>
 

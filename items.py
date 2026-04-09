@@ -23,6 +23,20 @@ def add_item(album, artist, review, review_points, user_id, classes):
 	for album, value in classes:
 		db.execute(sql, [item_id, album, value])
 
+
+#uusi kommentti
+def add_bid(item_id, user_id, comment_review):
+	sql = """ INSERT INTO bids (item_id, user_id, comment_review)
+				VALUES (?, ?, ?)"""
+	db.execute(sql, [item_id, user_id, comment_review])
+
+def get_bids(item_id):
+	sql = """SELECT bids.comment_review, users.id user_id, users.username
+			FROM bids, users
+			WHERE bids.item_id = ? AND bids.user_id = users.id
+			ORDER BY bids.id DESC """
+	return db.query(sql, [item_id])
+
 def get_classes(item_id):
 	sql = "SELECT album, value FROM item_classes WHERE item_id = ?"
 	return db.query(sql, [item_id])
