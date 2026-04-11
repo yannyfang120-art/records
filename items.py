@@ -105,3 +105,7 @@ def get_image(image_id):
 def delete_images(item_id):
     sql = "DELETE FROM images WHERE item_id = ?"
     db.execute(sql, [item_id])
+
+def remove_image(image_id):
+    sql = "DELETE FROM images WHERE id = ?"
+    db.execute(sql, [image_id])

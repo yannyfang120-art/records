@@ -8,6 +8,22 @@
 <body>
   <h1>Albumin kansikuva</h1>
 
+  <form action="/remove_image" method="post">
+    {% if image %}
+    <h2>Nykyinen kuva</h2>
+    <img src="/image/{{ image.id }}" width="200">
+
+    <input type="hidden" name="image_id" value="{{ image.id }}">
+
+    {% else %}
+    <p>Ei kuvaa vielä</p>
+    {% endif %}
+
+    <input type="hidden" name="item_id" value="{{ item.id }}">
+    <p>
+    <input type="submit" value="Poista" />
+</form>
+
   <h2>Päivitä kuva</h2>
   <form action="/add_image" method="post" enctype="multipart/form-data">
     <p>
@@ -16,13 +32,6 @@
     <input type="hidden" name="item_id" value="{{ item.id }}">
     <input type="submit" value="Lähetä" />
   </form>
-
-  {% if image %}
-    <h2>Nykyinen kuva</h2>
-    <img src="/image/{{ image.id }}" width="200">
-  {% else %}
-    <p>Ei kuvaa vielä</p>
-  {% endif %}
    
   <p>
     <a href="/item/{{ item.id }}">Takaisin</a>

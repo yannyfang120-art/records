@@ -92,7 +92,24 @@ def item(item_id):
     image = items.get_image_by_item(item_id)
     return render_template("item.html", item=item, image=image)
 
+#kuvan poistaminen
 
+@app.route("/remove_image", methods=["POST"])
+def remove_image():
+    require_login()
+
+    item_id = int(request.form["item_id"])
+    image_id = int(request.form["image_id"])
+
+    item = items.get_item(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+    items.remove_image(image_id)
+
+    return redirect(f"/images/{item_id}")
 
 
 #arvostelun muokkaus
@@ -144,7 +161,7 @@ def update_item():
     return redirect("/item/" + str(item_id))
 
 
-#arvostelun poisto
+#arvostelun päivittäminen
 
 @app.route("/remove_item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
