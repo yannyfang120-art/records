@@ -32,3 +32,9 @@ CREATE TABLE bids (
     user_id INTEGER REFERENCES users,
     comment_review INTEGER
 );
+
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    item_id INTEGER REFERENCES items,
+    image BLOB
+);

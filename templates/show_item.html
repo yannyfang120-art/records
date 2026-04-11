@@ -7,12 +7,18 @@
 
 <body>
   <h1>{{ item.album }}</h1>
-
    {% if session.get("user_id") == item.user_id %}
     <p>
      <a href ="/edit_item/{{ item.id }}">Muokkaa</a>
      <a href ="/remove_item/{{ item.id }}">Poista</a>
+     <a href ="/images/{{ item.id }}">Albumin kansikuva</a>
     </p>
+  {% endif %}
+
+  {% if image %}
+    <img src="/image/{{ image.id }}" width="200">
+  {% else %}
+    <p>Ei kuvaa</p>
   {% endif %}
 
   <p>

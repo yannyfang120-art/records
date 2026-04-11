@@ -1,11 +1,13 @@
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, make_response, redirect, render_template, request, session
 
 import config
 import db
 import items
+import re
 import users
+
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -29,7 +31,69 @@ def show_item(item_id):
         abort(404)
     classes = items.get_classes(item_id)
     bids = items.get_bids(item_id)
-    return render_template("show_item.html", item=item, classes=classes, bids=bids)
+    image = items.get_image_by_item(item_id)
+    return render_template("show_item.html", item=item, classes=classes, bids=bids, image=image)
+
+#kuvan näyttäminen
+@app.route("/images/<int:item_id>")
+def edit_images(item_id):
+    require_login()
+    item = items.get_item(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+    image = items.get_image_by_item(item_id)
+
+    return render_template("images.html", item=item, image=image)
+
+#kuvan lisääminen
+@app.route("/add_image", methods=["POST"])
+def add_image():
+    require_login()
+
+    item_id = request.form["item_id"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+
+    file = request.files["image"]
+    if not file.filename.endswith(".png"):
+        return "VIRHE: väärä tiedostomuoto"
+
+    image = file.read()
+    if len(image) > 100 * 1024:
+        return "VIRHE: liian suuri kuva"
+
+    items.delete_images(item_id)
+
+    items.add_image(item_id, image)
+    return redirect("/images/" + str(item_id))
+
+
+@app.route("/image/<int:image_id>")
+def show_image(image_id):
+    image = items.get_image(image_id)
+    if not image:
+        abort(404)
+
+    response = make_response(image)
+    response.headers.set("Content-Type", "image/png")
+    return response
+
+#lisäys image-item sivulle
+@app.route("/item/<int:item_id>")
+def item(item_id):
+    item = items.get_item(item_id)
+    image = items.get_image_by_item(item_id)
+    return render_template("item.html", item=item, image=image)
+
+
+
 
 #arvostelun muokkaus
 

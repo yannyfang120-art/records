@@ -84,3 +84,24 @@ def find_item(query):
 			 order by id desc"""
 	like = "%" + query + "%"
 	return db.query(sql, [like, like])
+
+
+#albumin kansikuva
+
+def get_image_by_item(item_id):
+    sql = "SELECT id, image FROM images WHERE item_id = ?"
+    result = db.query(sql, [item_id])
+    return result[0] if result else None
+
+def add_image(item_id, image):
+	sql = "INSERT INTO images (item_id, image) VALUES (?, ?)"
+	db.execute(sql, [item_id, image])
+
+def get_image(image_id):
+    sql = "SELECT image FROM images WHERE id = ?"
+    result = db.query(sql, [image_id])
+    return result[0][0] if result else None
+
+def delete_images(item_id):
+    sql = "DELETE FROM images WHERE item_id = ?"
+    db.execute(sql, [item_id])
