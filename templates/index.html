@@ -5,9 +5,21 @@
 {% block content %}
 <h2>Arvostelut</h2>
 
-<ul>
+<ul class="item-list">
   {% for item in items %}
-  <li><a href="{{ url_for('show_item', item_id=item.id) }}">{{ item.album }}</a></li>
+  <li class="item-box">
+    <div class="album-title">
+      <a href="{{ url_for('show_item', item_id=item.id) }}">{{ item.album }}</a>
+    </div>
+
+    <div class="meta">
+      Arvostelija:
+      <a href="/user/{{ item.user_id }}">{{ item.username }}</a>
+      <br>
+      Arvosana: {{ item.review_points }}
+    </div>
+  </li>
   {% endfor %}
 </ul>
+
 {% endblock %}
