@@ -1,49 +1,42 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Uusi arvostelu</title>
-</head>
+{% block title %}Uusi arvostelu{% endblock %}
 
-<body>
-  <h1>Uusi arvostelu</h1>
-  <form action="/create_item" method="post">
-    <p>
-      Albumi: <br />
-      <input type="text" name="album" maxlength="50" required />
-     </p> 
+{% block content %}
+<h1>Uusi arvostelu</h1>
+<form action="/create_item" method="post">
+  <p>
+    Albumi: <br />
+    <input type="text" name="album" maxlength="50" required />
+  </p>
 
-      Artisti: <br />
-      <input type="text" name="artist" maxlength="50" required />
-    </p>
+    Artisti: <br />
+    <input type="text" name="artist" maxlength="50" required />
+  </p>
 
-    <p>
-      Arvostelu: <br />
-      <textarea name="review" rows="8" cols="50" maxlength="1000" required></textarea>
-    </p>
+  <p>
+    Arvostelu: <br />
+    <textarea name="review" rows="8" cols="50" maxlength="1000" required></textarea>
+  </p>
 
-    <p>
-      Arvostele (1-10): <br />
-      <input type ="text" name="review_points" min="1" max="10" required/>
-    </p>
+  <p>
+    Arvostele (1-10): <br />
+    <input type ="text" name="review_points" min="1" max="10" required/>
+  </p>
 
 
-    {% for class in classes %}
-    <p>
-      {{ class }}: <br />
-      <select name="classes">
-        <option value="">(valitse)</option>
-      {% for option in classes[class] %}
-        <option value="{{ class }}:{{ option }}">{{ option }}</option>
-      {% endfor %}
-    </select>
-    </p>
+  {% for class in classes %}
+  <p>
+    {{ class }}: <br />
+    <select name="classes">
+      <option value="">(valitse)</option>
+    {% for option in classes[class] %}
+      <option value="{{ class }}:{{ option }}">{{ option }}</option>
     {% endfor %}
+  </select>
+  </p>
+  {% endfor %}
 
-
-
-    <input type="submit" value="Luo arvostelu" />
-  </form>
-</body>
-
-</html>
+  <input type="submit" value="Luo arvostelu" />
+</form>
+{% endblock %}

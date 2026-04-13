@@ -72,9 +72,8 @@ def update_item(item_id, album, artist, review, review_points):
 
 
 def remove_item(item_id):
-	sql = "DELETE FROM items WHERE id = ?"
-	db.execute(sql, [item_id])
-
+    sql = "DELETE FROM items WHERE id = ?"
+    db.execute(sql, [item_id])
 
 #tiedon etsiminen
 def find_item(query):

@@ -160,9 +160,7 @@ def update_item():
 
     return redirect("/item/" + str(item_id))
 
-
-#arvostelun päivittäminen
-
+#arvostelun poisto
 @app.route("/remove_item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
     require_login()
@@ -174,7 +172,7 @@ def remove_item(item_id):
         abort(403)
 
     if request.method == "GET":
-        return render_template("remove_item.html",item=item)
+        return render_template("remove_item.html", item=item)
 
     if request.method == "POST":
         if "remove" in request.form:

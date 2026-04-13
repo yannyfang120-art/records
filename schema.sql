@@ -21,20 +21,20 @@ CREATE TABLE classes (
 
 CREATE TABLE item_classes (
     id INTEGER PRIMARY KEY,
-    item_id INTEGER REFERENCES items,
+    item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
     album TEXT,
     value TEXT
 );
 
 CREATE TABLE bids (
     id INTEGER PRIMARY KEY,
-    item_id INTEGER REFERENCES items,
-    user_id INTEGER REFERENCES users,
+    item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id),
     comment_review INTEGER
 );
 
 CREATE TABLE images (
     id INTEGER PRIMARY KEY,
-    item_id INTEGER REFERENCES items,
+    item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
     image BLOB
 );

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Albumin kansikuva</title>
-</head>
+{% block title %}Albumin kansikuva{% endblock %}
 
-<body>
+{% block content %}
   <h1>Albumin kansikuva</h1>
 
   <form action="/remove_image" method="post">
@@ -33,9 +30,4 @@
     <input type="submit" value="Lähetä" />
   </form>
    
-  <p>
-    <a href="/item/{{ item.id }}">Takaisin</a>
-
- </body>
-
-</html>
+{% endblock %}

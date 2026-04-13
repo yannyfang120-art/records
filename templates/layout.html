@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <h1>Records</h1>
+
+  {% if session.get("username") %}
+  <p>
+    Olet kirjautunut nimellä {{ session.get("username") }}
+  </p>
+  {% endif %}
+
+  <p>
+    <a href="/">Etusivu</a> |
+    <a href="/find_item">Etsi arvostelu</a> |
+  {% if session.get("user_id") %}
+    <a href="/new_item">Uusi arvostelu</a> |
+    <a href="/logout">Kirjaudu ulos</a>
+  {% else %}
+    <a href="/login">Kirjaudu sisään</a> |
+    <a href="/register">Luo tunnus</a>
+  {% endif %}
+  </p>
+
+  {% block content %}{% endblock %}
+</body>
+
+</html>

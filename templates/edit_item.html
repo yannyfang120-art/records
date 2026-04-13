@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Arvostelun muokkaus</title>
-</head>
+{% block title %}Arvostelun muokkaus{% endblock %}
 
-<body>
-  <h1>Arvostelun muokkaus</h1>
+{% block content %}
+  <h2>Arvostelun muokkaus</h2>
   <form action="/update_item" method="post">
     <p>
       Albumi: <br />
@@ -29,6 +26,4 @@
     <input type="hidden" name="item_id" value="{{ item.id }}" /> 
     <input type="submit" value="Päivitä arvostelu" />
   </form>
-</body>
-
-</html>
+{% endblock %}
