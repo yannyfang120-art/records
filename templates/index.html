@@ -10,26 +10,19 @@
 
   {% if session.get("username") %}
   <p>
-    Olet kirjautunut nimellä {{ session.get("username") }}, id-numerosi on {{session.user_id}}
+    Olet kirjautunut nimellä {{ session.get("username") }}
   </p>
-  <p>
-    <a href="/logout">Kirjaudu ulos</a>
-  </p>
-
-  <p>
-    <a href="/new_item">Uusi arvostelu</a>
-  </p>
-
-  {% else %}
-
-  <p>
-    <a href="/login">Kirjaudu sisään</a>
-    <a href="/register">Luo tunnus</a>
-  </p>
-
   {% endif %}
+
   <p>
-    <a href="/find_item">Etsi arvostelu</a>
+    <a href="/find_item">Etsi arvostelu</a> |
+  {% if session.get("user_id") %}
+    <a href="/new_item">Uusi arvostelu</a> |
+    <a href="/logout">Kirjaudu ulos</a>
+  {% else %}
+    <a href="/login">Kirjaudu sisään</a> |
+    <a href="/register">Luo tunnus</a>
+  {% endif %}
   </p>
 
   <h2>Arvostelut</h2>
