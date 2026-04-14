@@ -23,6 +23,8 @@ def add_item(album, artist, review, review_points, user_id, classes):
 	for album, value in classes:
 		db.execute(sql, [item_id, album, value])
 
+	return item_id
+
 
 #uusi kommentti
 def add_bid(item_id, user_id, comment_review):

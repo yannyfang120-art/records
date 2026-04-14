@@ -99,3 +99,15 @@ a:hover {
   font-weight: 500;
   text-decoration: none;
 }
+
+/* kategoria */
+select {
+  padding: 0.6em 1em;
+  border-radius: 10px;
+  border: 1px solid #d0d7e2;
+  background: #ffffff;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-top: 1em;
+}

@@ -215,9 +215,8 @@ def create_item():
             parts = entry.split(":")
             classes.append((parts[0], parts[1]))
 
-    items.add_item(album, artist, review, review_points, user_id, classes)
-
-    return redirect("/")
+    item_id = items.add_item(album, artist, review, review_points, user_id, classes)
+    return redirect(f"/item/{item_id}")
 
 
 #tunnus
