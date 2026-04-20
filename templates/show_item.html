@@ -30,17 +30,18 @@
 <p>
   Arvostelija: <a href="/user/{{ item.user_id }}"> {{ item.username }}</a>
 </p>
+
 {% if classes %}
 <p>
   Genret:
   <ul>
-    {% for class in classes %}
-    <li>{{ class.album}}: {{class.value }}</li>
+    {% for class_name, value in classes %}
+      <li>{{ class_name }}: {{ value }}</li>
     {% endfor %}
   </ul>
-
 </p>
 {% endif %}
+
 <h3>Kommentit</h3>
 <ul>
   {% for bid in bids %}

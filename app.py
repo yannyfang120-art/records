@@ -123,7 +123,12 @@ def edit_item(item_id):
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_item.html",item=item)
+
+    classes = items.get_all_classes()
+
+    return render_template("edit_item.html",
+                           item=item,
+                           classes=classes)
 
 
 @app.route("/update_item", methods=["POST"])
@@ -154,9 +159,14 @@ def update_item():
     review_points = round(review_points, 1)
     review_points_str = f"{review_points:.1f}"
 
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
 
 
-    items.update_item(item_id, album, artist, review, review_points)
+    items.update_item(item_id, album, artist, review, review_points, classes)
 
     return redirect("/item/" + str(item_id))
 
