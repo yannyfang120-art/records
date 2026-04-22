@@ -1,3 +1,4 @@
+import secrets
 import sqlite3
 from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
@@ -16,6 +17,12 @@ def require_login():
     if "user_id" not in session:
         abort(403)
 
+#csfr
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
 
 @app.route("/")
 def index():
@@ -52,6 +59,7 @@ def edit_images(item_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
+    check_csrf()
 
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
@@ -99,6 +107,7 @@ def item(item_id):
 @app.route("/remove_image", methods=["POST"])
 def remove_image():
     require_login()
+    check_csrf()
 
     item_id = int(request.form["item_id"])
     image_id = int(request.form["image_id"])
@@ -136,6 +145,7 @@ def edit_item(item_id):
 @app.route("/update_item", methods=["POST"])
 def update_item():
     require_login()
+    check_csrf()
 
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
@@ -188,6 +198,7 @@ def remove_item(item_id):
         return render_template("remove_item.html", item=item)
 
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             items.remove_item(item_id)
             return redirect("/")
@@ -205,6 +216,7 @@ def new_item():
 @app.route("/create_item", methods=["POST"])
 def create_item():
     require_login()
+    check_csrf()
 
     album = request.form["album"]
     if not album or len(album) > 50:
@@ -237,10 +249,13 @@ def create_item():
 
 @app.route("/register")
 def register():
+    session["csrf_token"] = secrets.token_hex(16)
     return render_template("register.html")
 
 @app.route("/create", methods=["POST"])
 def create():
+    check_csrf()
+
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
@@ -285,6 +300,7 @@ def show_user(user_id):
 @app.route("/create_bid", methods=["POST"])
 def create_bid():
     require_login()
+    check_csrf()
 
     comment_review = request.form["comment_review"]
     if not comment_review or len(comment_review) > 1000:
@@ -308,6 +324,7 @@ def create_bid():
 def login():
 
     if request.method == "GET":
+        session["csrf_token"] = secrets.token_hex(16)
         return render_template("login.html")
 
     if request.method == "POST":
@@ -318,6 +335,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             flash("VIRHE: väärä tunnus tai salasana")

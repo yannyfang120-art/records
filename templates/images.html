@@ -17,8 +17,10 @@
     {% endif %}
 
     <input type="hidden" name="item_id" value="{{ item.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <p>
     <input type="submit" value="Poista" />
+
 </form>
 
   <h2>Päivitä kuva</h2>
@@ -28,6 +30,7 @@
     </p>
     <input type="hidden" name="item_id" value="{{ item.id }}">
     <input type="submit" value="Lähetä" />
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   </form>
    
 {% endblock %}
