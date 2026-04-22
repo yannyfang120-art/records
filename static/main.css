@@ -111,3 +111,19 @@ select {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   margin-top: 1em;
 }
+
+.flash {
+  padding: 1em 1.2em;
+  border-radius: 12px;
+  margin: 1em 0;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Punainen virheviesti */
+.flash-error {
+  background: linear-gradient(135deg, #ffdddd, #ffb3b3);
+  border: 1px solid #ff6b6b;
+  color: #7a0000;
+}
