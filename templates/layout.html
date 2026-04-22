@@ -9,9 +9,9 @@
 <body>
   <h1>Records</h1>
 
-  {% if session.get("username") %}
+  {% if session.get("user_id") %}
   <p>
-    Olet kirjautunut nimellä {{ session.get("username") }}
+    Olet kirjautunut nimellä <a href="/user/{{ session.user_id }}">{{ session.get("username") }}</a>
   </p>
   {% endif %}
 
